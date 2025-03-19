@@ -1,0 +1,378 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url(assets/background.jpg);
+    background-size: 100vw 100vh;
+
+}
+h1,h2,p{
+    margin: 0;
+    padding: 0;
+}
+.run-info input[type=submit]{
+    border: none;
+    background-color: transparent;
+    color: inherit;
+}
+.game-container {
+    position: relative;
+    height: 100vh;
+    width: 99vw;
+    color: rgb(255, 255, 255);
+}
+
+.game-info{
+    height: 101vh;
+    width: 400px;
+    background-color: #2F3A3C;
+    border-right: #A26C00;
+    border-style: none solid none none;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.blind-info{
+    height: fit-content;
+    width: fit-content;
+    background-color: #1C2B2E;
+    border-radius: 10px;
+    position: absolute;
+    left: 5px;
+    top: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.blind-name{
+    width: 360px;
+    height: 30px;
+    color: rgb(255, 255, 255);
+    background-color: #A56D00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+.blind-image{
+    width: 379px;
+    height: 150px;
+    background-color: #54451A;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-needed{
+    width: 225px;
+    height: 115px;
+    background-color: #1D2B2C;
+    border-radius: 10px;
+    margin-left: 10px;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.score-panel{
+    width: 360px;
+    height: fit-content;
+    background-color: #1B2628;
+    border-radius: 10px;
+    position: absolute;
+    left: 5px;
+    top: 250px;
+    display: flex;
+    padding: 15px;
+}
+
+.current-score{
+    width: 250px;
+    height: 75px;
+    background-color: #2F3A3C;
+    border-radius: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.hand-score-details{
+    background-color: #182325;
+    width: 360px;
+    height: 150px;
+    border-radius: 10px;
+    position: absolute;
+    left: 5px;
+    top: 365px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 25px;
+}
+
+.multiplyer-and-chip-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.multiplyer{
+    width: 150px;
+    height: 75px;
+    border-radius: 10px;
+    background-color: #0092FF;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.chips-gain{
+    width: 150px;
+    height: 75px;
+    border-radius: 10px;
+    background-color: #FE4C40;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.run-info{
+    width: 125px;
+    height: 150px;
+    background-color: #FE4C40;
+    border-radius: 10px;
+    position: absolute;
+    left: 24px;
+    top: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.run-info input[type=submit]{
+    width: 125px;
+    height: 150px;
+    font-size: 24px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.options{
+    width: 125px;
+    height: 150px;
+    background-color: #FF9700;
+    border-radius: 10px;
+    position: absolute;
+    left: 24px;
+    top: 730px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+.hands-left, .discards{
+    width: 110px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: #1B2628;
+    position: absolute;
+    left: 163px;
+    top: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.hands-left-num, .discards-left-num{
+    width: 95px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #2F3A3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+.hands-left-num{
+    color: #0092FF;
+}
+.discards{
+    left: 280px
+}
+.discards-left-num{
+    color: #FF4B4A;
+}
+.money{
+    width: 227px;
+    height: 100px;
+    background-color: #1B2628;
+    border-radius: 10px;
+    position: absolute;
+    top: 672px;
+    left: 163px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.money-num{
+    width: 207px;
+    height: 82px;
+    background-color: #2F3A3C;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F6B346;
+    font-size: 52px;
+    font-weight: bold;
+
+}
+.ante, .round{
+    width: 110px;
+    height: 100px;
+    border-radius: 10px;
+    background-color: #1B2628;
+    position: absolute;
+    left: 163px;
+    top: 782px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.ante-num ,.round-num{
+    width: 95px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #2F3A3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.round{
+    left: 280px;
+}
+.hand,.jokers {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.hand { 
+    width: fit-content;
+    height: fit-content;
+    background-color: #444;
+    top: 575px;
+    left: 440px;
+}
+
+.card0, .card1, .card2, .card3, .card4, .card5, .card6, .card7{
+    position: absolute;
+}
+
+.card0 {left: 10px; bottom: 10px;}
+.card1 {left: 137px; bottom: 10px;}
+.card2 {left: 263px; bottom: 10px;}
+.card3 {left: 390px; bottom: 10px;}
+.card4 {left: 518px; bottom: 10px;}
+.card5 {left: 645px; bottom: 10px;}
+.card6 {left: 772px; bottom: 10px;}
+.card7 {left: 900px; bottom: 10px;}
+
+.player-hand-form input[type="checkbox"]
+{
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.player-hand-form input[type="checkbox"]:checked
+{
+    width: 20px;
+    height: 20px;
+    border: black;
+    accent-color: black;
+}
+
+.play-hand{
+    width: 200px;
+    height: 100px;
+    background-color: #0092FF;
+    border-radius: 10px;
+    position: absolute;
+    left: 650px;
+    top: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.check-hand{
+    width: 200px;
+    height: 100px;
+    background-color: #FF9700;
+    border-radius: 10px;
+    position: absolute;
+    left: 910px;
+    top: 800px;
+    cursor: pointer;
+}
+
+.player-hand-form input[type="submit"]{
+    border: none;
+    border-radius: 10px;
+    font-size: 35px;
+    background-color: transparent;
+    width: inherit;
+    height: inherit;
+    color: white;
+    
+}
+
+.jokers { 
+    background-color: #333366;
+    top: 0px;
+    left: 430px; 
+}
+.card {
+    width: 117px;
+    height: 175.5px;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.card img{
+    width: inherit;
+    height: inherit;
+    border-radius: 5px;
+}
