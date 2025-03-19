@@ -1,2 +1,4 @@
 # Balatro-php
-Baltro game in php
+This is my dumb attempt to recreate the game "Balatro" in php
+If you dont know what that game is go look up Balatro
+Use x-ampp to use the file
