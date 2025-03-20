@@ -61,50 +61,68 @@ function CreateCurrentHandArray($array)
     return $randomCards;  //return this: $randomCards = ["suit/card", "hearts/10", ......]
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function GetChipsAndMultiplyerGained($handtype,$cardsvalue)
+function GetChipsAndMultiplyerGained($handtype,$cardsPlayed)
 {
     switch($handtype)
     {
         case "Straight Flush":
             $_SESSION["multiplyer"] = 8;
-            $_SESSION["chips"] = 100 + $cardsvalue;
+            $_SESSION["chips"] = 100 + array_sum($cardsPlayed);
             break;
         case "Four of a Kind":
             $_SESSION["multiplyer"] = 7;
-            $_SESSION["chips"] = 60 + $cardsvalue;
+            $_SESSION["chips"] = 60 + 4*FindValueOfDuplicateCards(array_count_values($cardsPlayed),4,null);
             break;
         case "Full House":
             $_SESSION["multiplyer"] = 4;
-            $_SESSION["chips"] = 40 + $cardsvalue;
+            $_SESSION["chips"] = 40 + array_sum($cardsPlayed);
             break;
         case "Flush":
             $_SESSION["multiplyer"] = 4;
-            $_SESSION["chips"] = 35 + $cardsvalue;
+            $_SESSION["chips"] = 35 + array_sum($cardsPlayed);
             break;
         case "Straight":
             $_SESSION["multiplyer"] = 4;
-            $_SESSION["chips"] = 30 + $cardsvalue;
+            $_SESSION["chips"] = 30 + array_sum($cardsPlayed);
             break;
         case "Three of a Kind":
             $_SESSION["multiplyer"] = 3;
-            $_SESSION["chips"] = 30 + $cardsvalue;
+            $_SESSION["chips"] = 30 + 3*FindValueOfDuplicateCards(array_count_values($cardsPlayed),3,null);
             break;
-        case "Two pair":
+        case "Two Pair":
             $_SESSION["multiplyer"] = 2;
-            $_SESSION["chips"] = 20 + $cardsvalue;
+            $firstPair = FindValueOfDuplicateCards(array_count_values($cardsPlayed),2,null);
+            $_SESSION["chips"] = 20 + 2*$firstPair + 2*FindValueOfDuplicateCards(array_count_values($cardsPlayed),2,$firstPair);
             break;
         case "Pair":
             $_SESSION["multiplyer"] = 2;
-            $_SESSION["chips"] = 10 + $cardsvalue;
+            $_SESSION["chips"] = 10 + 2*FindValueOfDuplicateCards(array_count_values($cardsPlayed),2,null);
             break;
         case "High Card":
             $_SESSION["multiplyer"] = 1;
-            $_SESSION["chips"] = 5 + $cardsvalue;
+            $_SESSION["chips"] = 5 + max($cardsPlayed);
             break;
     }
 }
 
-function ConvertSpecialCards($card,)
+function FindValueOfDuplicateCards($array,$amount,$valueForTwoPair)
+{
+    foreach($array as $i)
+    {
+        if(isset($valueForTwoPair))
+        {
+            if($i == $amount && (array_search($i,$array) != $valueForTwoPair))
+            {
+                return array_search($i,$array);
+            }
+        }
+        elseif($i == $amount)
+        {
+            return array_search($i,$array);
+        }
+    }
+}
+function ConvertSpecialCards($card)
 {
     switch ($card) 
     {
@@ -171,7 +189,7 @@ function CheckHand($cards)
     {
         $ranks = CreateArrayForCalcPoints($cards,1);
         $_SESSION["hand-type"] = EvaluateHand($cards);
-        GetChipsAndMultiplyerGained($_SESSION["hand-type"],array_sum($ranks));
+        GetChipsAndMultiplyerGained($_SESSION["hand-type"], $ranks);
     }
     elseif(count($cards) > 5 )
     {
