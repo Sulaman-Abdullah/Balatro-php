@@ -376,3 +376,42 @@ h1,h2,p{
     height: inherit;
     border-radius: 5px;
 }
+
+.game-over-container {
+    background: #222;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1rem;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: #0056b3;
+}
+
+.exit {
+    background: #ff4c4c;
+}
+
+.exit:hover {
+    background: #c70000;
+}

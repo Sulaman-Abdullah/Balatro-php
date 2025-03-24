@@ -199,7 +199,10 @@ function CheckHand($cards)
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Play hand functions and Calculate points 
-
+function GameOver()
+{
+    $_SESSION["game-over-screen"] = "";
+}
 function ReplaceSelectedCards($selectedCards)
 {
     foreach($selectedCards as $i)
@@ -219,12 +222,23 @@ function PlayHand($cards)
 {
     if(count($cards) <= 5 )
     {
-        $ranks = CreateArrayForCalcPoints($cards,1);        //get the ranks
-        $_SESSION["hand-type"] = EvaluateHand($cards);      //find out what type of hand : "high card" or "Flush" etc ..
-        GetChipsAndMultiplyerGained($_SESSION["hand-type"],array_sum($ranks));
-        $_SESSION["current-score"] += $_SESSION["multiplyer"] * $_SESSION["chips"];   //add the gained score to the current score
-        ReplaceSelectedCards($cards); // replace the selected cards
-        $_SESSION["hand-type"] = "Press check hand";
+        if($_SESSION["hands"] <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            $_SESSION["hands"] -- ;
+            $_SESSION["round"] ++ ;
+            $_SESSION["total-rounds-played"] ++ ;
+            $ranks = CreateArrayForCalcPoints($cards,1);        //get the ranks
+            $_SESSION["hand-type"] = EvaluateHand($cards);      //find out what type of hand : "high card" or "Flush" etc ..
+            GetChipsAndMultiplyerGained($_SESSION["hand-type"],$ranks);
+            $_SESSION["current-score"] += $_SESSION["multiplyer"] * $_SESSION["chips"];   //add the gained score to the current score
+            $_SESSION["total-chips-earned"] += $_SESSION["multiplyer"] * $_SESSION["chips"];
+            ReplaceSelectedCards($cards); // replace the selected cards
+            $_SESSION["hand-type"] = "Press check hand";
+        }
     }
     elseif(count($cards) > 5 )
     {
@@ -238,6 +252,7 @@ if(!isset($_SESSION["game-started"]))
 {
     $_SESSION["game-started"] = true;
     $_SESSION["current-blind"] = "Small blind";
+    $_SESSION["blind-img"] = "Small_Blind.png";
     $_SESSION["score-needed"] = 300;
     $_SESSION["current-score"] = 0;
     $_SESSION["hand-type"] = "Press check hand";
@@ -248,6 +263,9 @@ if(!isset($_SESSION["game-started"]))
     $_SESSION["money"] = 4;
     $_SESSION["ante"] = 1;
     $_SESSION["round"] = 1;
+    $_SESSION["total-chips-earned"] = 0;
+    $_SESSION["total-rounds-played"] = 0;
+    $_SESSION["game-over-screen"] = "display:none;";
     $_SESSION["current-hand"] = CreateCurrentHandArray($_SESSION["cards"]);
     header("Location:Game.php");
 }
@@ -258,7 +276,7 @@ if(isset($_POST['check']) && isset($_POST["card"]))
     $checkedCards = @$_POST["card"];
     CheckHand(@$_POST["card"]);
 }
-elseif(isset($_POST["play"]) && isset($_POST["card"]))
+elseif(isset($_POST["play"]) && isset($_POST["card"]) && $_SESSION["game-over-screen"] == "display:none;")
 {
     PlayHand($_POST["card"]);
 }
@@ -282,15 +300,14 @@ elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check'
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="game-container">
-        <div class="game-info">
+        <div class="game-info" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "border-right:#13515A;border-style: none solid none none;";}?>">
             <div class="blind-info">
-                <div class="blind-name">
+                <div class="blind-name" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "background-color:#025FA3;";}?>">
                     <h1><?php echo $_SESSION["current-blind"];?></h1>
                 </div>
-                <div class="blind-image">
-                    <img src="assets/Big_Blind.png" alt="Big Blind image" style="height: 96px; width: 96px;">
+                <div class="blind-image" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "background-color:#073B53;";}?>">
+                    <img src="assets/<?php echo $_SESSION['blind-img'];?>"  style="height: 96px; width: 96px;">
                     <div class="score-needed">
                         <div>Score at least</div>
                         <div style="font-size: 28px; color: red;"><?php echo $_SESSION["score-needed"]?></div>
@@ -350,13 +367,17 @@ elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check'
             <div class="play-hand"><input type="submit" name="play" value="Play hand"></div>
             <div class="check-hand"><input type="submit" name="check" value="Check hand"></div>
         </form>
-        <div id="joker-hand" class="jokers">
-            <div class="card">Joker 1</div>
-            <div class="card">Joker 2</div>
-            <div class="card">Joker 3</div>
-            <div class="card">Joker 4</div>
-            <div class="card">Joker 5</div>
+        <div class="game-over-container" style="<?php echo $_SESSION["game-over-screen"];?>">
+            <h1>Game Over</h1>
+            <p>🃏 You ran out of Hands to play! 🃏</p>
+            <p><strong>Total chips earned:</strong> <?php echo $_SESSION["total-chips-earned"]?></p>
+            <p><strong>Higest Ante:</strong> <?php echo $_SESSION["ante"]?></p>
+            <p><strong>Total Rounds Played:</strong> <?php echo $_SESSION["total-rounds-played"]?></p>
+            <div class="button-container">
+                <a href="#" class="button">Play Again</a>
+                <a href="#" class="button exit">Exit to Main Menu</a>
         </div>
+    </div>
     </div>
 </body>
 </html>
