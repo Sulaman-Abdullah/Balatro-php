@@ -29,9 +29,8 @@ function GetRandomCard($array,$key)
         $randomindex = rand(0,count($array[$key])-1);
         $randomcard = $array[$key][$randomindex]; 
     }
-    while(in_array($randomcard,$_SESSION["already-used-cards"][$key]));  // TODO: FIX BUG ,error that causes this loop to run forever when the score need is over 1000
+    while(in_array($randomcard,$_SESSION["already-used-cards"][$key])); 
     array_push($_SESSION["already-used-cards"][$key],$randomcard);
-    
     return $randomcard;
 }
 
@@ -75,7 +74,7 @@ function GetChipsAndMultiplyerGained($handtype,$cardsPlayed)
             $_SESSION["multiplyer"] = 3;
             $_SESSION["chips"] = 30 + 3*FindValueOfDuplicateCards(array_count_values($cardsPlayed),3,null);
             break;
-        case "Two Pair":  // TODO: fix this it dunt worki dumbass, clacs the points wrong
+        case "Two Pair":  
             $_SESSION["multiplyer"] = 2;
             $firstPair = FindValueOfDuplicateCards(array_count_values($cardsPlayed),2,null);
             $_SESSION["chips"] = 20 + 2*$firstPair + 2*FindValueOfDuplicateCards(array_count_values($cardsPlayed),2,$firstPair);

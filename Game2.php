@@ -27,15 +27,15 @@ if(!isset($_SESSION["cards"]))
 if(!isset($_SESSION["game-started"]))
 {
     $_SESSION["game-started"] = true;
-    $_SESSION["current-blind"] = "Small blind";
-    $_SESSION["blind-img"] = "Small_Blind.png";
-    $_SESSION["score-needed"] = 5;
+    $_SESSION["current-blind"] = "Big blind";
+    $_SESSION["blind-img"] = "Big_Blind.png";
+    $_SESSION["score-needed"] = 1200;
     $_SESSION["current-score"] = 0;
     $_SESSION["hand-type"] = "Press check hand";
     $_SESSION["multiplyer"] = 0;
     $_SESSION["chips"] = 0;
-    $_SESSION["hands"] = 200;
-    $_SESSION["discards"] = 3;
+    $_SESSION["hands"] = 5;
+    $_SESSION["discards"] = 4;
     $_SESSION["money"] = 5;
     $_SESSION["ante"] = 1;
     $_SESSION["round"] = 1;
@@ -43,7 +43,7 @@ if(!isset($_SESSION["game-started"]))
     $_SESSION["total-rounds-played"] = 0;
     $_SESSION["game-over-screen"] = "display:none;";
     $_SESSION["current-hand"] = CreateCurrentHandArray($_SESSION["cards"]);
-    header("Location:Game.php");
+    header("Location:Game2.php");
 }
 
 
@@ -75,12 +75,12 @@ elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check'
 </head>
 <body>
     <div class="game-container">
-        <div class="game-info" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "border-right:#13515A;border-style: none solid none none;";}?>">
+        <div class="game-info">
             <div class="blind-info">
-                <div class="blind-name" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "background-color:#025FA3;";}?>">
+                <div class="blind-name">
                     <h1><?php echo $_SESSION["current-blind"];?></h1>
                 </div>
-                <div class="blind-image" style="<?php if($_SESSION['current-blind'] == 'Small blind') {echo "background-color:#073B53;";}?>">
+                <div class="blind-image">
                     <img src="assets/<?php echo $_SESSION['blind-img'];?>"  style="height: 96px; width: 96px;">
                     <div class="score-needed">
                         <div>Score at least</div>
