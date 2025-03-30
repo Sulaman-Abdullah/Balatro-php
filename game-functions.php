@@ -33,4 +33,14 @@ function GameOver()
 {
     $_SESSION["game-over-screen"] = "";
 }
+
+function PlayAgian()
+{
+    session_destroy();
+    header("location:Game.php");
+}
+
+
 ?>
+
+

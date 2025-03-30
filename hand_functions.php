@@ -52,4 +52,23 @@ function PlayHand($cards)
     }
 }
 
+function Discard($cards)
+{
+    if(count($cards) <= 5 && $_SESSION["discards"] > 0)
+    {
+        $_SESSION["discards"] --;
+        ReplaceSelectedCards($cards);
+        $_SESSION["hand-type"] = "Press check hand";
+    }
+    elseif($_SESSION["discards"] <= 0)
+    {
+        $_SESSION["hand-type"] = "No discards left";
+    }
+    else
+    {
+        $_SESSION["hand-type"] = "Max 5 cards";
+    }
+
+}
+
 ?>

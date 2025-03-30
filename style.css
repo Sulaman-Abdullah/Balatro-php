@@ -343,6 +343,16 @@ h1,h2,p{
     top: 800px;
     cursor: pointer;
 }
+.discard{
+    width: 200px;
+    height: 100px;
+    background-color: #FE4C40;
+    border-radius: 10px;
+    position: absolute;
+    left: 1170px;
+    top: 800px;
+    cursor: pointer;
+}
 
 .player-hand-form input[type="submit"]{
     border: none;
@@ -352,7 +362,7 @@ h1,h2,p{
     width: inherit;
     height: inherit;
     color: white;
-    
+    cursor: pointer;
 }
 
 .jokers { 

@@ -49,14 +49,22 @@ if(!isset($_SESSION["game-started"]))
 
 if(isset($_POST['check']) && isset($_POST["card"]))
 {
-    $checkedCards = @$_POST["card"];
+    $checkedCards = @$_POST["card"]; // DONT DELETE , Important to store the cards that were selected
     CheckHand(@$_POST["card"]);
 }
 elseif(isset($_POST["play"]) && isset($_POST["card"]) && $_SESSION["game-over-screen"] == "display:none;")
 {
     PlayHand($_POST["card"]);
 }
-elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check']) ))
+elseif(isset($_POST["discard"]) && isset($_POST["card"]))
+{
+    Discard($_POST["card"]);
+}
+elseif(isset($_POST["play-again"]))
+{
+    PlayAgian();
+}
+elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check']) || isset($_POST["discard"]) ))
 {
     $_SESSION["hand-type"] = "Atleast 1 card";
 }
@@ -140,6 +148,7 @@ elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check'
             </div>
             <div class="play-hand"><input type="submit" name="play" value="Play hand"></div>
             <div class="check-hand"><input type="submit" name="check" value="Check hand"></div>
+            <div class="discard"><input type="submit" name="discard" value="Discard"></div>
         </form>
         <div class="game-over-container" style="<?php echo $_SESSION["game-over-screen"];?>">
             <h1>Game Over</h1>
@@ -148,8 +157,10 @@ elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check'
             <p><strong>Higest Ante:</strong> <?php echo $_SESSION["ante"]?></p>
             <p><strong>Total Rounds Played:</strong> <?php echo $_SESSION["total-rounds-played"]?></p>
             <div class="button-container">
-                <a href="#" class="button">Play Again</a>
-                <a href="#" class="button exit">Exit to Main Menu</a>
+                <form action="" method="post">
+                    <button type="submit" class="button" name="play-again">Play Again</></button>
+                    <button type="submit" class="button exit">Exit to Main Menu</button>
+                </form>
         </div>
     </div>
     </div>
