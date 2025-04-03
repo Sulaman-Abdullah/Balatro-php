@@ -47,17 +47,20 @@ if(!isset($_SESSION["game-started"]))
 }
 
 
-
-if(isset($_POST['check']) && isset($_POST["card"]))
+if(!isset($_POST["card"]) && (isset($_POST["play"]) || isset($_POST['check']) || isset($_POST["discard"]) ))
+{
+    $_SESSION["hand-type"] = "Atleast 1 card";
+}
+elseif(isset($_POST['check']))
 {
     $checkedCards = @$_POST["card"]; // DONT DELETE , Important to store the cards that were selected
     CheckHand(@$_POST["card"]);
 }
-elseif(isset($_POST["play"]) && isset($_POST["card"]) && $_SESSION["game-over-screen"] == "display:none;")
+elseif(isset($_POST["play"]) && $_SESSION["game-over-screen"] == "display:none;")
 {
     PlayHand($_POST["card"]);
 }
-elseif(isset($_POST["discard"]) && isset($_POST["card"]))
+elseif(isset($_POST["discard"]))
 {
     Discard($_POST["card"]);
 }
@@ -65,10 +68,7 @@ elseif(isset($_POST["play-again"]))
 {
     PlayAgian();
 }
-elseif(!isset($_POST["cards"]) && (isset($_POST["play"]) || isset($_POST['check']) || isset($_POST["discard"]) ))
-{
-    $_SESSION["hand-type"] = "Atleast 1 card";
-}
+
 
 
 ?>
